@@ -1,12 +1,10 @@
 //
 //  main.swift
-//  linked_list
+//  singly linked list using swift
 //
 //  Created by joe george on 25/10/21.
-//
 
 import Foundation
-
 
 public class Node<T>{
     var data: T
@@ -18,15 +16,12 @@ public class Node<T>{
     }
     
     public func toString() -> String {
-        
         if let safeNext = self.next{
             return  "\(self.data) -> \(safeNext.toString())"
         } else {
            return  "\(self.data)"
         }
-        
     }
-    
 }
 
 public class LinkedList<T> {
@@ -49,7 +44,7 @@ public class LinkedList<T> {
     }
     
     
-    // o(1) -> data is added to end position and tail is re-adjusted and if data is nil head and tail will be ajusted to the same data
+    // o(1) -> new node is added to end position
     func push(_ val: T) {
         let newNode = Node(val)
         if self.head != nil {
@@ -63,19 +58,19 @@ public class LinkedList<T> {
         self.size += 1
     }
     
-    // o(n) -> beacuse we have to traverse the whole list
+    // o(n) -> beacuse we have to traverse the whole list (node is removed from end position)
     func pop() {
         if self.head == nil {
             return
-        }  else {
+        } else {
             var temp = self.head
             var prev = self.head
             
             while temp?.next != nil {
                 prev = temp
                 temp = temp?.next
-                
             }
+            
             self.tail = prev
             self.tail?.next = nil
             self.size -= 1
@@ -86,7 +81,6 @@ public class LinkedList<T> {
                 self.tail = nil
             }
         }
-         
     }
     
     // o(1) -> appending a new node to the first position
@@ -126,7 +120,7 @@ public class LinkedList<T> {
     // o(n) -> traversing through the list to get the value
     func get(_ index: Int32) -> Node<T>?  {
         // if index is less than zero and greater than length return nil
-        if index >= 0 || index < self.size {
+        if index >= 0 && index < self.size {
             var temp = self.head
             for _ in 0..<index {
                 temp = temp?.next
@@ -136,35 +130,54 @@ public class LinkedList<T> {
         return nil
     }
     
+    // o(n) -> traversing through the list to set the value
     func set(_ index: Int32, _ value: T) -> Bool {
-        if let safeTempVal = self.get(index){
-            safeTempVal.data = value
+        if let safeTempNode = self.get(index){
+            safeTempNode.data = value
             return true
         }
         return false
     }
     
-    
+    // o(n) -> traversing through the list to insert the new node
+    func insert(_ index: Int32, _ value: T) -> Bool {
+        let newNode = Node(value)
+        if index == 0 {
+            self.unShift(value)
+        }
+        else if index == self.size {
+            self.push(value)
+        }
+        else if index < 0 || index > self.size {
+            return false
+        } else {
+            // to get the prev node of the passed index
+            if let safePrevTempNode = self.get(index - 1){
+                newNode.next = safePrevTempNode.next
+                safePrevTempNode.next = newNode
+                self.size += 1
+            }
+        }
+        return true
+    }
     
 }
 
 
 let dogList = LinkedList<String>()
-
 dogList.push("lab")
 dogList.push("bulldog")
 dogList.push("husky")
 dogList.unShift("german sheperd")
-dogList.shift()
-let isSet: Bool = dogList.set(010, "beagle")
+//dogList.shift()
+let isSet: Bool = dogList.set(0, "beagle")
+let isInserted: Bool = dogList.insert(4, "st bernard")
 
-//if let safeVal = dogList.get(0){
-//    print(safeVal.data)
-//}
 
 
 
 print(dogList.toString())
+print(dogList.size)
 
 
 
