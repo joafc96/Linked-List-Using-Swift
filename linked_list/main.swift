@@ -113,7 +113,6 @@ public class LinkedList<T> {
                 self.tail = nil
             }
         }
-        // if head is nil return
         return
     }
     
@@ -160,31 +159,19 @@ public class LinkedList<T> {
         }
         return true
     }
-    
 }
 
-
 let dogList = LinkedList<String>()
+
 dogList.push("lab")
 dogList.push("bulldog")
 dogList.push("husky")
+
 dogList.unShift("german sheperd")
-//dogList.shift()
+dogList.shift()
+
 let isSet: Bool = dogList.set(0, "beagle")
-let isInserted: Bool = dogList.insert(4, "st bernard")
-
-
-
+let isInserted: Bool = dogList.insert(3, "st. bernard")
 
 print(dogList.toString())
 print(dogList.size)
-
-
-
-
-
-
-
-
-
-
