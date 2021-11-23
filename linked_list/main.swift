@@ -127,24 +127,16 @@ public class LinkedList<T> {
 
 let dogList = LinkedList<String>()
 
-//dogList.push("lab")
-dogList.unShift("german")
+dogList.push("lab")
+//dogList.unShift("german sheperd")
 //dogList.unShift("bully")
 //dogList.push("husky")
+dogList.shift()
 
 dogList.shift()
 
 print(dogList.toString())
 
-//let randomNumList = LinkedList<Int>()
-//
-//randomNumList.push(Int.random(in: 0..<10))
-//randomNumList.push(Int.random(in: 0..<5))
-//randomNumList.push(Int.random(in: 0..<10))
-//
-//randomNumList.pop()
-//
-//print(randomNumList.toString())
 
 
 
